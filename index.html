@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Application Gallery | 관장의 보관함</title>
+    <meta name="description" content="미니멀리스트의 시선으로 정리된 당신의 모든 신청 기록. 세미나, 교육, 채용, 강의를 한눈에 관리하세요.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="abstract-bg shape-1"></div>
+    <div class="abstract-bg shape-2"></div>
+
+    <main class="museum-canvas">
+        <header>
+            <div>
+                <h1 class="museum-title">The Collection</h1>
+                <p class="museum-subtitle">Curated Applications & Schedules</p>
+            </div>
+            <div class="museum-status">
+                <span id="item-count">0</span> Artifacts Catalogued
+            </div>
+        </header>
+
+        <section class="museum-controls">
+            <button class="btn-primary" id="open-modal-btn">New Application +</button>
+            <div class="filter-group">
+                <!-- Filters could be added here later -->
+            </div>
+        </section>
+
+        <section class="collection-grid" id="gallery-grid">
+            <!-- Items will be injected here by script.js -->
+            <div class="empty-gallery">갤러리가 비어 있습니다. 당신의 일정을 예술처럼 기록해보세요.</div>
+        </section>
+    </main>
+
+    <!-- Modal for adding new items -->
+    <div class="modal" id="entry-modal">
+        <div class="modal-content">
+            <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Add to Archive</h2>
+            <form id="app-form">
+                <div class="form-group">
+                    <label for="title">Title (신청 항목명)</label>
+                    <input type="text" id="title" placeholder="예: 구글 개발자 세미나" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Category (분류)</label>
+                    <select id="type" required>
+                        <option value="seminar">Seminar / Conference</option>
+                        <option value="education">Offline Training</option>
+                        <option value="recruitment">Recruitment / Exam</option>
+                        <option value="online">Online Course</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date (일시)</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location / Link (장소 또는 링크)</label>
+                    <input type="text" id="location" placeholder="강남역 2번 출구 or URL">
+                </div>
+                <div class="form-group">
+                    <label for="note">Curation Note (메모)</label>
+                    <textarea id="note" rows="3" placeholder="기억해야 할 중요한 점..."></textarea>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 40px;">
+                    <button type="submit" class="btn-primary" style="flex: 2;">Archive This</button>
+                    <button type="button" class="btn-primary" id="close-modal-btn" style="background: transparent; color: var(--museum-black); border: 1px solid var(--museum-black); flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
