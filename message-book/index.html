@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Conversation: A Book of Memories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="book-container">
+        <header>
+            <h1>우리의 기록</h1>
+            <p class="subtitle">그날의 말들이 머무는 곳</p>
+        </header>
+
+        <div id="message-container" class="message-list">
+            <!-- Messages will be loaded here -->
+        </div>
+
+        <footer>
+            <p>© 2026 Archive of Memories</p>
+        </footer>
+    </div>
+
+    <script>
+        async function loadMessages() {
+            try {
+                const response = await fetch('messages.json');
+                const messages = await response.json();
+                const container = document.getElementById('message-container');
+                
+                let lastDate = "";
+
+                messages.forEach(msg => {
+                    const dateStr = msg.date.split(' ')[0];
+                    if (dateStr !== lastDate) {
+                        const divider = document.createElement('div');
+                        divider.className = 'date-divider';
+                        divider.textContent = dateStr;
+                        container.appendChild(divider);
+                        lastDate = dateStr;
+                    }
+
+                    const entry = document.createElement('div');
+                    entry.className = `message-entry ${msg.is_from_me ? 'me' : 'other'}`;
+                    
+                    const sender = document.createElement('span');
+                    sender.className = 'sender';
+                    sender.textContent = msg.is_from_me ? '나' : msg.sender;
+                    
+                    const text = document.createElement('div');
+                    text.textContent = msg.text;
+                    
+                    const time = document.createElement('span');
+                    time.className = 'timestamp';
+                    time.textContent = msg.date.split(' ')[1].substring(0, 5);
+                    
+                    entry.appendChild(sender);
+                    entry.appendChild(text);
+                    entry.appendChild(time);
+                    
+                    container.appendChild(entry);
+                });
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        loadMessages();
+    </script>
+</body>
+</html>
