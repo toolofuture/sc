@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 서울특별시 초등 교원 현황</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>서울특별시 초등 교원 현황</h1>
+            <p class="subtitle">2025년 기준 교육지원청 및 교과별 데이터 분포</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="card">
+                <h3>전체 교원 수</h3>
+                <div class="value" id="total-teachers">-</div>
+            </div>
+            <div class="card">
+                <h3>남교사 비율</h3>
+                <div class="value" id="male-ratio" style="color: var(--male)">-</div>
+            </div>
+            <div class="card">
+                <h3>여교사 비율</h3>
+                <div class="value" id="female-ratio" style="color: var(--female)">-</div>
+            </div>
+            <div class="card">
+                <h3>교과 담당 비중</h3>
+                <div class="value" id="subject-ratio">-</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">지역별 성별 분포 (교육지원청)</div>
+                </div>
+                <canvas id="regionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">주요 교과별 인원 현황</div>
+                </div>
+                <canvas id="subjectChart"></canvas>
+            </div>
+            <div class="chart-container" style="grid-column: span 2;">
+                <div class="chart-header">
+                    <div class="chart-title">일반학급 vs 특수학급 성별 분포</div>
+                </div>
+                <canvas id="classTypeChart"></canvas>
+            </div>
+        </div>
+
+        <footer>
+            <p>데이터 출처: 서울특별시교육청 | © 2025 Educational Data Insight</p>
+        </footer>
+    </div>
+
+    <script>window.dashboardData = {"regions": ["강남서초", "중부", "강동송파", "강서양천", "남부", "동부", "동작관악", "북부", "서부", "성동광진", "성북강북"], "regional_data": {"강남서초": {"male_total": 189, "female_total": 2064, "general_m": 150, "general_f": 1638, "special_m": 6, "special_f": 66, "subjects": {"국어": {"m": 0, "f": 2}, "도덕": {"m": 0, "f": 5}, "사회": {"m": 0, "f": 2}, "수학": {"m": 1, "f": 2}, "과학": {"m": 19, "f": 129}, "실과": {"m": 3, "f": 14}, "체육": {"m": 1, "f": 0}, "음악": {"m": 3, "f": 34}, "미술": {"m": 0, "f": 3}, "외국어(영어)": {"m": 4, "f": 156}, "컴퓨터": {"m": 0, "f": 0}, "재량활동": {"m": 0, "f": 0}, "통합교과": {"m": 0, "f": 3}, "기타": {"m": 2, "f": 10}}}, "중부": {"male_total": 122, "female_total": 803, "general_m": 99, "general_f": 607, "special_m": 2, "special_f": 43, "subjects": {"국어": {"m": 1, "f": 3}, "도덕": {"m": 1, "f": 3}, "사회": {"m": 0, "f": 0}, "수학": {"m": 0, "f": 2}, "과학": {"m": 12, "f": 43}, "실과": {"m": 0, "f": 4}, "체육": {"m": 3, "f": 3}, "음악": {"m": 1, "f": 10}, "미술": {"m": 1, "f": 3}, "외국어(영어)": {"m": 2, "f": 67}, "컴퓨터": {"m": 0, "f": 3}, "재량활동": {"m": 0, "f": 0}, "통합교과": {"m": 0, "f": 3}, "기타": {"m": 0, "f": 9}}}, "강동송파": {"male_total": 266, "female_total": 2605, "general_m": 208, "general_f": 2080, "special_m": 8, "special_f": 82, "subjects": {"국어": {"m": 1, "f": 2}, "도덕": {"m": 1, "f": 19}, "사회": {"m": 1, "f": 5}, "수학": {"m": 0, "f": 5}, "과학": {"m": 21, "f": 119}, "실과": {"m": 2, "f": 11}, "체육": {"m": 5, "f": 4}, "음악": {"m": 0, "f": 43}, "미술": {"m": 0, "f": 1}, "외국어(영어)": {"m": 16, "f": 204}, "컴퓨터": {"m": 0, "f": 0}, "재량활동": {"m": 0, "f": 4}, "통합교과": {"m": 2, "f": 4}, "기타": {"m": 1, "f": 22}}}, "강서양천": {"male_total": 310, "female_total": 2076, "general_m": 226, "general_f": 1646, "special_m": 10, "special_f": 85, "subjects": {"국어": {"m": 1, "f": 2}, "도덕": {"m": 1, "f": 7}, "사회": {"m": 0, "f": 2}, "수학": {"m": 0, "f": 2}, "과학": {"m": 36, "f": 92}, "실과": {"m": 1, "f": 5}, "체육": {"m": 8, "f": 4}, "음악": {"m": 3, "f": 34}, "미술": {"m": 0, "f": 2}, "외국어(영어)": {"m": 21, "f": 165}, "컴퓨터": {"m": 0, "f": 0}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 1, "f": 7}, "기타": {"m": 2, "f": 22}}}, "남부": {"male_total": 289, "female_total": 1872, "general_m": 218, "general_f": 1424, "special_m": 5, "special_f": 107, "subjects": {"국어": {"m": 0, "f": 5}, "도덕": {"m": 1, "f": 2}, "사회": {"m": 0, "f": 0}, "수학": {"m": 0, "f": 3}, "과학": {"m": 34, "f": 100}, "실과": {"m": 3, "f": 6}, "체육": {"m": 6, "f": 7}, "음악": {"m": 5, "f": 37}, "미술": {"m": 0, "f": 4}, "외국어(영어)": {"m": 14, "f": 152}, "컴퓨터": {"m": 1, "f": 0}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 0, "f": 4}, "기타": {"m": 2, "f": 20}}}, "동부": {"male_total": 217, "female_total": 1291, "general_m": 151, "general_f": 957, "special_m": 3, "special_f": 71, "subjects": {"국어": {"m": 0, "f": 6}, "도덕": {"m": 2, "f": 9}, "사회": {"m": 1, "f": 7}, "수학": {"m": 0, "f": 4}, "과학": {"m": 17, "f": 46}, "실과": {"m": 2, "f": 4}, "체육": {"m": 10, "f": 6}, "음악": {"m": 5, "f": 36}, "미술": {"m": 0, "f": 8}, "외국어(영어)": {"m": 21, "f": 119}, "컴퓨터": {"m": 1, "f": 2}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 2, "f": 2}, "기타": {"m": 2, "f": 13}}}, "동작관악": {"male_total": 187, "female_total": 1269, "general_m": 146, "general_f": 983, "special_m": 4, "special_f": 76, "subjects": {"국어": {"m": 0, "f": 3}, "도덕": {"m": 0, "f": 7}, "사회": {"m": 0, "f": 0}, "수학": {"m": 0, "f": 0}, "과학": {"m": 17, "f": 64}, "실과": {"m": 1, "f": 6}, "체육": {"m": 8, "f": 3}, "음악": {"m": 0, "f": 17}, "미술": {"m": 0, "f": 0}, "외국어(영어)": {"m": 10, "f": 98}, "컴퓨터": {"m": 0, "f": 1}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 0, "f": 1}, "기타": {"m": 1, "f": 9}}}, "북부": {"male_total": 397, "female_total": 1539, "general_m": 327, "general_f": 1168, "special_m": 3, "special_f": 69, "subjects": {"국어": {"m": 0, "f": 4}, "도덕": {"m": 2, "f": 11}, "사회": {"m": 1, "f": 2}, "수학": {"m": 0, "f": 0}, "과학": {"m": 18, "f": 53}, "실과": {"m": 4, "f": 12}, "체육": {"m": 11, "f": 8}, "음악": {"m": 6, "f": 37}, "미술": {"m": 0, "f": 5}, "외국어(영어)": {"m": 20, "f": 155}, "컴퓨터": {"m": 0, "f": 1}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 2, "f": 2}, "기타": {"m": 3, "f": 11}}}, "서부": {"male_total": 308, "female_total": 2121, "general_m": 239, "general_f": 1647, "special_m": 7, "special_f": 103, "subjects": {"국어": {"m": 1, "f": 4}, "도덕": {"m": 5, "f": 8}, "사회": {"m": 1, "f": 0}, "수학": {"m": 0, "f": 1}, "과학": {"m": 26, "f": 103}, "실과": {"m": 2, "f": 7}, "체육": {"m": 8, "f": 8}, "음악": {"m": 3, "f": 35}, "미술": {"m": 0, "f": 5}, "외국어(영어)": {"m": 16, "f": 168}, "컴퓨터": {"m": 0, "f": 2}, "재량활동": {"m": 0, "f": 0}, "통합교과": {"m": 0, "f": 2}, "기타": {"m": 0, "f": 28}}}, "성동광진": {"male_total": 185, "female_total": 1102, "general_m": 149, "general_f": 841, "special_m": 3, "special_f": 57, "subjects": {"국어": {"m": 1, "f": 4}, "도덕": {"m": 0, "f": 6}, "사회": {"m": 0, "f": 6}, "수학": {"m": 1, "f": 2}, "과학": {"m": 14, "f": 60}, "실과": {"m": 0, "f": 5}, "체육": {"m": 4, "f": 5}, "음악": {"m": 1, "f": 18}, "미술": {"m": 0, "f": 4}, "외국어(영어)": {"m": 10, "f": 89}, "컴퓨터": {"m": 0, "f": 1}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 2, "f": 1}, "기타": {"m": 0, "f": 2}}}, "성북강북": {"male_total": 233, "female_total": 1233, "general_m": 175, "general_f": 958, "special_m": 8, "special_f": 59, "subjects": {"국어": {"m": 1, "f": 2}, "도덕": {"m": 0, "f": 6}, "사회": {"m": 1, "f": 2}, "수학": {"m": 0, "f": 1}, "과학": {"m": 18, "f": 53}, "실과": {"m": 0, "f": 5}, "체육": {"m": 11, "f": 4}, "음악": {"m": 3, "f": 29}, "미술": {"m": 0, "f": 6}, "외국어(영어)": {"m": 13, "f": 84}, "컴퓨터": {"m": 0, "f": 5}, "재량활동": {"m": 0, "f": 1}, "통합교과": {"m": 1, "f": 2}, "기타": {"m": 2, "f": 16}}}}, "total_stats": {"male": 2703, "female": 17975, "subjects": {"국어": 43, "도덕": 96, "사회": 31, "수학": 24, "과학": 1094, "실과": 97, "체육": 127, "음악": 360, "미술": 42, "외국어(영어)": 1604, "컴퓨터": 17, "재량활동": 11, "통합교과": 41, "기타": 177}}};</script>
+<script src="script.js"></script>
+</body>
+</html>
